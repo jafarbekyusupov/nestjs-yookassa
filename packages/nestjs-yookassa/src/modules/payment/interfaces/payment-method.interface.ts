@@ -2,6 +2,24 @@ import { Amount } from '../../../common/interfaces'
 import { PaymentMethodsEnum } from '../enums'
 import type { YookassaMetadata } from '../../../common/types/metadata.type'
 
+interface BasePaymentMethod {
+	/**
+     * Идентификатор способа оплаты.
+     * Если saved: true, то этот id можно использовать для повторных платежей.
+     */
+	id: string
+
+	/**
+     * С помощью сохраненного способа оплаты можно проводить списания без подтверждения пользователя (автоплатеж).
+     */
+	saved: boolean
+
+	/**
+     * Название способа оплаты (например, "Bank card *4444").
+     */
+	title: string
+}
+
 /**
  * Тип для метода оплаты, который может быть одним из нескольких типов.
  * @type {PaymentMethodSberLoan | PaymentMethodMobileBalance | PaymentMethodCard | PaymentMethodCash | PaymentMethodSbp | PaymentMethodB2bSberbank | PaymentMethodElectronicCertificate | PaymentMethodYooMoney | PaymentMethodSberbank | PaymentMethodTinkoffBank}
@@ -18,7 +36,7 @@ export type PaymentMethod<T extends YookassaMetadata = YookassaMetadata> =
 	| PaymentMethodSberbank
 	| PaymentMethodTinkoffBank
 
-export interface PaymentMethodSberLoan {
+export interface PaymentMethodSberLoan extends BasePaymentMethod {
 	/**
 	 * Тип метода — «Покупки в кредит» от СберБанка
 	 */
@@ -28,7 +46,7 @@ export interface PaymentMethodSberLoan {
 /**
  * Тип, представляющий способ оплаты через баланс мобильного телефона.
  */
-export interface PaymentMethodMobileBalance {
+export interface PaymentMethodMobileBalance extends BasePaymentMethod {
 	/**
 	 * Тип метода — мобильный баланс
 	 */
@@ -43,7 +61,7 @@ export interface PaymentMethodMobileBalance {
 /**
  * Тип, представляющий способ оплаты с использованием банковской карты.
  */
-export interface PaymentMethodCard {
+export interface PaymentMethodCard extends BasePaymentMethod {
 	/**
 	 * Тип метода — банковская карта
 	 */
@@ -86,7 +104,7 @@ export interface PaymentMethodCard {
 /**
  * Тип для подтверждения через наличные.
  */
-export interface PaymentMethodCash {
+export interface PaymentMethodCash extends BasePaymentMethod {
 	/**
 	 * Тип метода — Наличные
 	 */
@@ -101,7 +119,7 @@ export interface PaymentMethodCash {
 /**
  * Тип для подтверждения через СБП (Система быстрых платежей).
  */
-export interface PaymentMethodSbp {
+export interface PaymentMethodSbp extends BasePaymentMethod {
 	/**
 	 * Тип метода — Система быстрых платежей
 	 */
@@ -111,7 +129,7 @@ export interface PaymentMethodSbp {
 /**
  * Тип для подтверждения через B2B Сбербанк.
  */
-export interface PaymentMethodB2bSberbank {
+export interface PaymentMethodB2bSberbank extends BasePaymentMethod {
 	/**
 	 * Тип метода — B2B Сбербанк
 	 */
@@ -143,7 +161,9 @@ export interface PaymentMethodB2bSberbank {
 /**
  * Тип для подтверждения с использованием электронного сертификата (ФЭС НСПК).
  */
-export interface PaymentMethodElectronicCertificate<T extends YookassaMetadata = YookassaMetadata> {
+export interface PaymentMethodElectronicCertificate<
+	T extends YookassaMetadata = YookassaMetadata
+> extends BasePaymentMethod {
 	/**
 	 * Тип метода оплаты — электронный сертификат.
 	 * Значение: `electronic_certificate`.
@@ -260,17 +280,22 @@ export interface PaymentMethodElectronicCertificate<T extends YookassaMetadata =
 /**
  * Тип для подтверждения с использованием YooMoney.
  */
-export interface PaymentMethodYooMoney {
+export interface PaymentMethodYooMoney extends BasePaymentMethod {
 	/**
-	 * Тип метода — YooMoney
+	 * Тип метода — YooMoney.
 	 */
 	type: PaymentMethodsEnum.YOOMONEY
+
+	/**
+	 * Номер счета в YooMoney.
+	 */
+	account_number: string
 }
 
 /**
  * Тип для подтверждения через Сбербанк.
  */
-export interface PaymentMethodSberbank {
+export interface PaymentMethodSberbank extends BasePaymentMethod {
 	/**
 	 * Тип метода — Сбербанк
 	 */
@@ -286,7 +311,7 @@ export interface PaymentMethodSberbank {
 /**
  * Тип для подтверждения через Тинькофф Банк.
  */
-export interface PaymentMethodTinkoffBank {
+export interface PaymentMethodTinkoffBank extends BasePaymentMethod {
 	/**
 	 * Тип метода — Тинькофф Банк
 	 */
