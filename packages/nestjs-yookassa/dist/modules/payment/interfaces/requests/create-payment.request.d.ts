@@ -162,7 +162,7 @@ export interface CreatePaymentRequest<T extends YookassaMetadata = YookassaMetad
      * Метод платежа.
      * Необязательное поле.
      */
-    payment_method_data?: PaymentMethod<T>;
+    payment_method_data?: PaymentMethod;
     /**
      * Тип подтверждения для платежа.
      */
