@@ -158,7 +158,9 @@ export interface AirlineInfo {
 /**
  * Тип, представляющий запрос на создание платежа.
  */
-export interface CreatePaymentRequest<T extends YookassaMetadata = YookassaMetadata> {
+export interface CreatePaymentRequest<
+	T extends YookassaMetadata = YookassaMetadata
+> {
 	/**
 	 * Сумма платежа.
 	 */
@@ -201,7 +203,7 @@ export interface CreatePaymentRequest<T extends YookassaMetadata = YookassaMetad
 	 * Метод платежа.
 	 * Необязательное поле.
 	 */
-	payment_method_data?: PaymentMethod<T>
+	payment_method_data?: PaymentMethod
 
 	/**
 	 * Тип подтверждения для платежа.

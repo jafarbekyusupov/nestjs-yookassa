@@ -1,27 +1,12 @@
 import { Amount } from '../../../common/interfaces';
 import { PaymentMethodsEnum } from '../enums';
 import type { YookassaMetadata } from '../../../common/types/metadata.type';
-interface BasePaymentMethod {
-    /**
-     * Идентификатор способа оплаты.
-     * Если saved: true, то этот id можно использовать для повторных платежей.
-     */
-    id: string;
-    /**
-     * С помощью сохраненного способа оплаты можно проводить списания без подтверждения пользователя (автоплатеж).
-     */
-    saved: boolean;
-    /**
-     * Название способа оплаты (например, "Bank card *4444").
-     */
-    title: string;
-}
 /**
  * Тип для метода оплаты, который может быть одним из нескольких типов.
  * @type {PaymentMethodSberLoan | PaymentMethodMobileBalance | PaymentMethodCard | PaymentMethodCash | PaymentMethodSbp | PaymentMethodB2bSberbank | PaymentMethodElectronicCertificate | PaymentMethodYooMoney | PaymentMethodSberbank | PaymentMethodTinkoffBank}
  */
 export type PaymentMethod<T extends YookassaMetadata = YookassaMetadata> = PaymentMethodSberLoan | PaymentMethodMobileBalance | PaymentMethodCard | PaymentMethodCash | PaymentMethodSbp | PaymentMethodB2bSberbank | PaymentMethodElectronicCertificate<T> | PaymentMethodYooMoney | PaymentMethodSberbank | PaymentMethodTinkoffBank;
-export interface PaymentMethodSberLoan extends BasePaymentMethod {
+export interface PaymentMethodSberLoan {
     /**
      * Тип метода — «Покупки в кредит» от СберБанка
      */
@@ -30,7 +15,7 @@ export interface PaymentMethodSberLoan extends BasePaymentMethod {
 /**
  * Тип, представляющий способ оплаты через баланс мобильного телефона.
  */
-export interface PaymentMethodMobileBalance extends BasePaymentMethod {
+export interface PaymentMethodMobileBalance {
     /**
      * Тип метода — мобильный баланс
      */
@@ -44,7 +29,7 @@ export interface PaymentMethodMobileBalance extends BasePaymentMethod {
 /**
  * Тип, представляющий способ оплаты с использованием банковской карты.
  */
-export interface PaymentMethodCard extends BasePaymentMethod {
+export interface PaymentMethodCard {
     /**
      * Тип метода — банковская карта
      */
@@ -81,7 +66,7 @@ export interface PaymentMethodCard extends BasePaymentMethod {
 /**
  * Тип для подтверждения через наличные.
  */
-export interface PaymentMethodCash extends BasePaymentMethod {
+export interface PaymentMethodCash {
     /**
      * Тип метода — Наличные
      */
@@ -95,7 +80,7 @@ export interface PaymentMethodCash extends BasePaymentMethod {
 /**
  * Тип для подтверждения через СБП (Система быстрых платежей).
  */
-export interface PaymentMethodSbp extends BasePaymentMethod {
+export interface PaymentMethodSbp {
     /**
      * Тип метода — Система быстрых платежей
      */
@@ -104,7 +89,7 @@ export interface PaymentMethodSbp extends BasePaymentMethod {
 /**
  * Тип для подтверждения через B2B Сбербанк.
  */
-export interface PaymentMethodB2bSberbank extends BasePaymentMethod {
+export interface PaymentMethodB2bSberbank {
     /**
      * Тип метода — B2B Сбербанк
      */
@@ -132,7 +117,7 @@ export interface PaymentMethodB2bSberbank extends BasePaymentMethod {
 /**
  * Тип для подтверждения с использованием электронного сертификата (ФЭС НСПК).
  */
-export interface PaymentMethodElectronicCertificate<T extends YookassaMetadata = YookassaMetadata> extends BasePaymentMethod {
+export interface PaymentMethodElectronicCertificate<T extends YookassaMetadata = YookassaMetadata> {
     /**
      * Тип метода оплаты — электронный сертификат.
      * Значение: `electronic_certificate`.
@@ -233,7 +218,7 @@ export interface PaymentMethodElectronicCertificate<T extends YookassaMetadata =
 /**
  * Тип для подтверждения с использованием YooMoney.
  */
-export interface PaymentMethodYooMoney extends BasePaymentMethod {
+export interface PaymentMethodYooMoney {
     /**
      * Тип метода — YooMoney.
      */
@@ -246,7 +231,7 @@ export interface PaymentMethodYooMoney extends BasePaymentMethod {
 /**
  * Тип для подтверждения через Сбербанк.
  */
-export interface PaymentMethodSberbank extends BasePaymentMethod {
+export interface PaymentMethodSberbank {
     /**
      * Тип метода — Сбербанк
      */
@@ -260,10 +245,9 @@ export interface PaymentMethodSberbank extends BasePaymentMethod {
 /**
  * Тип для подтверждения через Тинькофф Банк.
  */
-export interface PaymentMethodTinkoffBank extends BasePaymentMethod {
+export interface PaymentMethodTinkoffBank {
     /**
      * Тип метода — Тинькофф Банк
      */
     type: PaymentMethodsEnum.T_BANK;
 }
-export {};
