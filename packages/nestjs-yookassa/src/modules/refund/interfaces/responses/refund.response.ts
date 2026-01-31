@@ -81,6 +81,11 @@ export interface Refund {
 	id: string
 
 	/**
+	 * Идентификатор платежа.
+	 */
+	payment_id: string
+
+	/**
 	 * Статус возврата.
 	 */
 	status: RefundStatusEnum
